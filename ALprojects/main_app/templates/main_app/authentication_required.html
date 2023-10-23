@@ -1,0 +1,36 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}
+    Authentication required
+{% endblock %}
+
+{% block menu %}
+  <li class="nav-item active"> <a class="nav-link" href="{% url 'main_page' %}" target="_blank"> Home </a> </li>
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock menu %}
+
+{% block content %}
+<div class="container-fluid main_div">
+  <div class="col-10" style="margin-left:10%">
+    <h2> Authentication required </h2>
+    <p> Dear User, If you want to send a feedback please <a href="{% url 'login' %}"> sign in </a> </p>
+  </div>
+</div>
+{% endblock %}

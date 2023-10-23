@@ -1,0 +1,88 @@
+#MIPT_img{
+  height:150px;
+  width:220px;
+  margin-right: 50px;
+  margin-left: 200px;
+}
+#CMS_img{
+  height:140px;
+  width:140px;
+  margin-right: 50px;
+}
+#CERN_img{
+  height:140px;
+  width:140px;
+  margin-right: 50px;
+}
+#display_image{
+  width: 500px;
+  height: 500px;
+  border: 10px solid black;
+  display: flex;
+
+}
+#logo{
+  width:220px;
+  height:150px;
+}
+#output_image{
+  width:500px;
+  height:400px;
+}
+#DJ_img{
+  height: 80px;
+  width: 80px;
+  margin-left:20px;
+}
+#Python_img{
+  height: 80px;
+  width: 80px;
+  margin-left:20px;
+}
+#HTML_img{
+  height: 100px;
+  width: 100px;
+  margin-left:20px;
+}
+#CSS_img{
+  height: 80px;
+  width: 80px;
+  margin-left:20px;
+  margin-top:12px;
+}
+#Bts_img{
+  height: 80px;
+  width: 80px;
+  margin-left:30px;
+  margin-top:12px;
+}
+#Pandas_img{
+  height: 90px;
+  width: 180px;
+  margin-left:30px;
+}
+#MPL_img{
+  height: 100px;
+  width: 100px;
+  margin-left:30px;
+}
+#scikit_img{
+  height: 90px;
+  width: 170px;
+  margin-left:30px;
+}
+#XGB_img{
+  height: 90px;
+  width: 160px;
+  margin-left:30px;
+}
+#PyT_img{
+  height: 100px;
+  width: 180px;
+  margin-left:30px;
+}
+#docker_img{
+  height: 100px;
+  width: 140px;
+  margin-left:30px;
+}

@@ -1,0 +1,94 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}
+    Feedback history
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item"> <a class = "nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid main_div">
+    <div class="col-9" style="margin-left:10%">
+        <h2 class="py-3">{{ request.user.username }} Feedback history </h2>
+        <table class="table table-info" style="color:white">
+            <thead>
+                <tr>
+                    <th scope="col" class="th-horizontal"> # </th>
+                    <th scope="col" class="th-horizontal"> Project </th>
+                    <th scope="col" class="th-horizontal"> Date </th>
+                    <th scope="col" class="th-horizontal"> Topic </th>
+                    <th scope="col" class="th-horizontal col-3"> Text</th>
+                    <th scope="col" class="th-horizontal col-3"> Answer </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in page_obj %}
+                    <tr>
+                      <th scope="row"> {{ page_obj.start_index|add:forloop.counter0 }} </th>
+                        <td>  {{ row.project }} </td>
+                        <td> {{ row.date_time_last_change }} </td>
+                        <td> {{ row.topic }} </td>
+                        <td> {{ row.text|truncatechars:100 }} </td>
+                        <td> {{ row.answer|truncatechars:100 }} </td>
+                    </tr>
+                  {% endfor %}
+            </tbody>
+        </table>
+        {% if page_obj.paginator.num_pages != 1 %}
+        <div style="margin-top:1%">
+            <nav>
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.number|add:-1}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for page in page_obj.paginator.page_range %}
+                    {% if page == page_obj.number %}
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                        </li>
+                    {% elif page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.number|add:+1}}">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

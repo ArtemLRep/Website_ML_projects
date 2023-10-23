@@ -1,0 +1,38 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}
+    Feedback thanks
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item"> <a class = "nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+        <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+
+{% endblock menu %}
+
+{% block content %}
+<div class="container-fluid main_div">
+  <div class="col-10" style="margin-left:10%">
+    <h3> Dear {{ request.user.username }} </h3>
+    <p class="text_under_h3_4">Thank you for your feedback. <br> I will answer you as soon as possible.
+    You can view the history of feedbacks on your personal <a href="{% url 'user_page' %}">user page </a> </p>
+  </div>
+</div>
+{% endblock %}

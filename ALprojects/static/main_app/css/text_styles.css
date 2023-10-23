@@ -1,0 +1,77 @@
+p{
+  line-height:35px;
+  font-size: 20px;
+  color:white;
+  margin-left:15px;
+}
+label{
+  line-height:35px;
+  font-size: 20px;
+  color:white;
+  margin-left:15px;
+}
+.error_messages{
+  font-size: 10px;
+  color:red;
+}
+.help_text{
+  font-size: 15px;
+  margin-left:15px;
+  color:gray;
+}
+.ul_text, .ol_text{
+  line-height:35px;
+  font-size: 20px;
+  color:white;
+  margin-left:40px;
+}
+.phone_link{
+  color:#044717;
+  font-size:25px;
+}
+h1{
+  color:#7DF9FF;
+  margin-top:10px;
+}
+h2{
+  color:#66f2df;
+  margin-top:10px;
+}
+h3{
+  color:#FFE5B4;
+  margin-top:10px;
+  margin-left:15px;
+}
+h4{
+  margin-top:10px;
+  color:#FCF5E5;
+  margin-left:25px;
+}
+.main_div{
+  background-color:#444444;
+  border-bottom:2px solid black;
+  border-top: 2px solid black;
+}
+.text_under_h3_4{
+  margin-left:40px;
+}
+#contacts{
+  color:black;
+}
+.text_contacts{
+  color:black;
+  margin-top:10px;
+  margin-left:0;
+}
+#result{
+    color:black;
+    font-size: 35px;
+    background-color:white;
+    border: 1px solid black;
+    margin-left: 10%;
+    margin-top: 2%;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px!important;
+    border-bottom-right-radius: 10px!important;
+    border-bottom-left-radius: 10px!important;
+}

@@ -1,0 +1,127 @@
+{% extends 'main_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Bank loan history
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item"> <a class = "nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid main_div">
+    <div class="row">
+        <div class="col-10 py-4 ms-lg-5">
+            <label> Date of request: {{ data.date_time }}</label>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 py-3">
+            <table class="table table-info ms-lg-5">
+                <thead>
+                    <tr>
+                        <th scope="col" class="th-horizontal">#</th>
+                        <th scope="col" class="th-horizontal">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"> Amount </th>
+                            <td>  {{ data.amount }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Credit score </th>
+                            <td>  {{ data.credit_score }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Term (years) </th>
+                            <td>  {{ data.term }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Income </th>
+                            <td>  {{ data.income }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Years in current job </th>
+                            <td>  {{ data.years_in_current_job }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Monthly debt </th>
+                            <td>  {{ data.monthly_debt }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Years of credit history </th>
+                            <td>  {{ data.years_of_credit_history }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Number of open accounts </th>
+                            <td>  {{ data.number_of_credit_problems }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Number of credit problems </th>
+                            <td>  {{ data.number_of_credit_problems }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Current credit balance </th>
+                            <td>  {{ data.current_credit_balance }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Maximum open credit </th>
+                            <td>  {{ data.maximum_open_credit }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Bankruptcies </th>
+                            <td>  {{ data.bankruptcies }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Tax liens </th>
+                            <td>  {{ data.tax_liens }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Home ownership </th>
+                            <td>  {{ data.home_ownership }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> Purpose </th>
+                            <td>  {{ data.purpose }} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 d-flex flex-row align-items-center ms-lg-5 mt-1 mb-4">
+            <label> Result </label>
+            <div class="px-2">
+                {% if data.result_id == 0 %}
+                    <button class="btn btn-lg btn-warning"> {{ data.result }} </button>
+                {% endif %}
+                {% if data.result_id == 1 %}
+                    <button class="btn btn-lg btn-success"> {{ data.result }} </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

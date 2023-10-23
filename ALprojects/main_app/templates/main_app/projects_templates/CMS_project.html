@@ -1,0 +1,172 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+
+{% block title %}
+  CMS project
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid main_div">
+  <div class="row">
+    <div class="col-10" style="margin-left:10%; margin-top:2%; margin-bottom:2%">
+      <h1> <b>Important</b></h1>
+      <p>
+        Due to confidentiality,
+        I cannot make data and models publicly available,
+        especially regarding X(3872),
+        since this is now a very promising research topic.
+        Example of data structure you can see on <a href="https://drive.google.com/file/d/1voilyR1x6HrxkT8gyEDxXl0uW3mapb8A/view?usp=share_link" target="_blank">
+        Google drive</a>, but dataset is empty!
+        You can see similar tasks with open data on <a href="https://www.kaggle.com/competitions/flavours-of-physics" target="_blank">
+        Kaggle</a> CERN competitions.
+      </p>
+      <h1>Project description</h1>
+      <p>
+        This project is a binary classification (signal/noise), based on resent <a href="https://home.cern/press/2022/run-3" target="_blank">CMS run3</a> dataset.
+        <br>
+        I`m studying decay of <a href="https://en.wikipedia.org/wiki/X(3872)" target="_blank">X(3872)</a> particle, which is important for c-quark physic.
+        X(3872) mostly decays into J/psi &pi;<sup>+</sup>&pi;<sup>-</sup>, and J/psi decays into &mu;<sup>+</sup>&mu;<sup>-</sup>.
+        <br>
+        X(3872) particle is similar to <a href="https://pdg.lbl.gov/2010/listings/rpp2010-list-psi-2S.pdf" target="_blank">Psi(2s)</a>,
+        which mostly dacays the same way. Unlike X(3872), Psi(2s) is well studied. So, we can test our method`s on dataset with Psi(2s) events.
+      </p>
+      <h2> Reconstruction</h2>
+      <p>
+        The first step of studying is a data collection. For this purpose, a reconstruction procedure is carried out:
+      </p>
+        <ol class="ol_text">
+          <li>We take particle tracks from experimental data, in our case: &pi;<sup>+</sup> &pi;<sup>-</sup> &mu;<sup>+</sup> &mu;<sup>-</sup>. </li>
+          <li>Then &mu;<sup>+</sup> &mu;<sup>-</sup> tracks are fitted into J/psi, in the way that these two tracks were starting from one point,
+              and their invariant mass were equal to invariant mass of J/Psi (approximately 3096 MeV or 5.5208×10<sup>−27</sup> kg) </li>
+              Then we combine &mu;<sup>+</sup> &mu;<sup>-</sup> into J/Psi track, calculate their momentum and other features.
+          <li>Then we combine J/Psi track with &pi;<sup>+</sup> &pi;<sup>-</sup> in the same way, but invariant mass now should be in range 3600;4000 MeV. So, we get candidates of J/Psi &pi;<sup>+</sup> &pi;<sup>-</sup> decay</li>
+          <li>Then we calculate features of selected events </li>
+        </ol>
+      <p>
+        Thus we get dataset of events, which have Psi(2s) and X(3872).
+      </p>
+        <h2>Dataset description</h2>
+      <p>
+        One event is a row of DataFrame with these features:
+        <ul class="ul_text">
+          <li> mjpp - invariant Mass of J/Psi &pi;<sup>+</sup> &pi;<sup>-</sup></li>
+          <li> mJpsi - Invariant of Mass J/Psi meson in GeV</li>
+          <li> Pt_jpp - Transverse momentum of J/Psi in GeV</li>
+          <li> vtx_prob_jpsi - Probability of vertex fit of two &mu;<sup>+</sup> &mu;<sup>-</sup> tracks in J/Psi meson</li>
+          <li> Pt_mu_min - Min transverse momentum  of muon (&mu;)</li>
+          <li> Pt_pi1 - Transverse momentum of &pi;<sup>+</sup></li>
+          <li> Pt_pi2 - Transverse momentum of &pi;<sup>-</sup></li>
+          <li> mpipi - Invariant mass of &pi;<sup>+</sup>&pi;<sup>-</sup> tracks</li>
+          <li> eta_jpp - <a href="https://en.wikipedia.org/wiki/Pseudorapidity" target="_blank">Pseudorapidity</a> of J/Psi</li>
+          <li> pt_jpp - Transverse momentum of J/Psi &pi;<sup>+</sup>&pi;<sup>-</sup></li>
+          <li> vtxprob_jpp - Probability of vertex fit of J/Psi &pi;<sup>+</sup> &pi;<sup>-</sup> tracks</li>
+          <li> Etc.</li>
+        </ul>
+      </p>
+      <h2> Mass distribution</h2>
+      <p>
+        There are 63.5 million events of candidates in Real data dataset.
+        <br>
+        On image below you can see mass distribution of J/Psi &pi;<sup>+</sup> &pi;<sup>-</sup>.
+        There are two peaks of distribution. The first approximately in [3.62 GeV; 3.75 GeV] range corresponding to Psi(2S), with mass 3.777 GeV.
+        The second peak in range [3.82 GeV; 3.92 GeV] corresponding to X(3872), with mass 3.872 GeV.
+      </p>
+      <img class="img_dist" src="{% static 'main_app/images/Mass_distr.png' %}">
+      <p>
+        <i> F(m) = Y<sup>Psi</sup>&#215;John<sup>Psi</sup>(m) + Y<sup>X</sup>&#215;John<sup>X</sup>(m) + Y<sup>Bkg</sup>&#215;Ber(m)</i>
+      </p>
+      <p>
+        This distribution fitted by sum of two Johnson's SU-distribution (signal events: one for Psi(2s) peak, second for X(3872) peak) and 4 degree Bernstein polynomial(background events).
+        Each term in the sum multiplied by Normalization parameter, which corresponding to number of events in this distribution.
+        <br>
+        Fitting procedure isminimization of Likelyhood. Binning Fit n_bins=800, n_pars=15
+        <br>
+        Fitting results are:
+      </p>
+      <ul class="ul_text">
+        <li> Y<sup>Psi</sup> - 4.343 millions of Psi(2s) events in dataset</li>
+        <li> Y<sup>X</sup> - 291 thousand of X(3872) events in dataset</li>
+        <li> Y<sup>Bkg</sup> - 58.8 millions of Background events in dataset</li>
+      </ul>
+      <p>
+        Thus, in our dataset, background events are much larger than all others.
+        Such a number of background events degrades the accuracy of the calculated parameters of X(3872).
+      </p>
+      <p>
+        So, I suggested to implement XGBoost classification algorithm to decrease Background events.
+      </p>
+      <h2> Simulated events</h2>
+      <p>
+        To train classification algorithm we need dataset of signal events(with label 1),
+        because in real data we don`t know which events are signal and which are background.
+        For these purposes, a dataset of modeling events was collected, using Pythia events generator (Monte Carlo procedure).
+        This generator implements particle physics, and then all modeling events go through the detector response function,
+        which gives modeling events a correction taking into account the inaccuracies of the CMS detector.
+        So, there are 4.5 million events in modeling dataset, with same features as a real dateset.
+      </p>
+      <p>
+        On image below you can see mass distribution of Psi(2S) modeling events. (MC - Monte Carlo events)
+      </p>
+      <img class="img_dist" src="{% static 'main_app/images/mjpp_BToPsi2s_MC.png' %}">
+      <p>
+        Fitting procedure is similar to Real data.
+      </p>
+      <h2> Background events</h2>
+      <p>
+        So, we have signal events with label 1. Now we need background events with label 0.
+        <br>
+        Background events are described by wrong sign real data. That is J/Psi &pi;<sup>-</sup> &pi;<sup>-</sup> and J/Psi &pi;<sup>+</sup> &pi;<sup>+</sup>
+        events of real data. That`s why we make procedure of data collecting similar to real data, but now we demand sign of &pi;&pi; tracks equal to 1.
+      </p>
+      <h2> XGBoost model</h2>
+      <p>
+        Thus, we have dataset of Bkg events(label 0) and Psi(2S)(label 1) modeling dataset. This dataset describe real data, and now we can build XGBoost classification model.
+        Train data is 70% of all data and test data is 20%.
+        Due to K_Fold cross valid optimal hyperparameters are(n_folds=10):
+      </p>
+      <ul class="ul_text">
+        <li>learning_rate = 0.2</li>
+        <li>n_models = 100</li>
+        <li>max_depth = 15</li>
+      </ul>
+      <p>
+        ROC AUC on test data is 0.98. Accuracy is 0.94(threshold of probability is 1/2)
+      </p>
+      <h2> Results </h2>
+      <p>
+        On picture below you can see mass distribution of test dataset.
+      </p>
+      <p>
+        Before ML - all data
+      </p>
+      <img class="img_ML" src="{% static 'main_app/images/MC_BKG_before_ML.png' %}">
+      <p style="margin-top:5%">
+        After ML - data with predicted label 1 (threshold of probability is 0.8)
+      </p>
+      <img class="img_ML" src="{% static 'main_app/images/MC_BKG_After_ML.png' %}">
+    </div>
+  </div>
+</div>
+{% endblock %}

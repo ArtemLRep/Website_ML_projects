@@ -1,0 +1,80 @@
+a{
+  text-decoration: none;
+  color:#90d4b5;
+}
+.contact_link{
+  color:#044717;
+}
+a:hover{
+  text-decoration:underline;
+  color:#9FE2BF;
+}
+li.nav-item:hover{
+  background-color:#99ff99;
+  color:black;
+  border-top-right-radius: 20px !important;
+  border-top-left-radius: 20px!important;
+  border-bottom-right-radius: 20px!important;
+  border-bottom-left-radius: 20px!important;
+  border: 1px solid black;
+}
+#sign_in
+{
+  background-color:white;
+  color:black;
+  filter:blur(0);
+  border-top-right-radius: 10px !important;
+  border-top-left-radius: 10px!important;
+  border-bottom-right-radius: 10px!important;
+  border-bottom-left-radius: 10px!important;
+  border: 1px solid black;
+  margin-right: 20px;
+}
+#sign_up
+{
+  background-color:#FFEA00;
+  color:black;
+  filter:blur(0);
+  border-top-right-radius: 10px !important;
+  border-top-left-radius: 10px!important;
+  border-bottom-right-radius: 10px!important;
+  border-bottom-left-radius: 10px!important;
+  border: 1px solid black;
+  margin-right: 100px;
+}
+#sign_in:hover{
+  background-color:#FFFDD0;
+}
+#sign_up:hover
+{
+  background-color:#F4BB44;
+}
+#get_answer{
+  box-shadow: none;
+  outline: none;
+  margin-top:40px;
+}
+#log_out
+{
+    background-colr: white;
+    color:black;
+    filter:blur(0);
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px!important;
+    border-bottom-right-radius: 10px!important;
+    border-bottom-left-radius: 10px!important;
+    border: 1px solid black;
+    margin-right: 100px;
+}
+#user_nemu
+{
+    background-color: blue;
+    color:black;
+    filter:blur(0);
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px!important;
+    border-bottom-right-radius: 10px!important;
+    border-bottom-left-radius: 10px!important;
+    border: 1px solid black;
+    margin-right: 20px;
+}

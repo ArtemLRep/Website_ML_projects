@@ -1,0 +1,120 @@
+{% extends 'main_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block menu %}
+  <li class="nav-item active"> <a class="nav-link" href="{% url 'main_page' %}" target="_blank"> Home </a> </li>
+  <li class="nav-item "> <a class="nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+  <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock menu %}
+
+{% block content %}
+  <div class="container-fluid main_div">
+    <div class="row">
+      <div style="margin-left:10%; margin-top:2%" class="col-10">
+        <h1> About </h1>
+
+        <p> On this page you can see information about my experience in python/ML/DL development and download CV </p>
+
+        <h2> Education </h2>
+        <p>
+          I have studied in <a href="https://english.nsu.ru/" target="_blank"> Novosibirsk State University </a>
+          on physical faculty and graduated in 2019. <br>
+          Now I am a master student in <a href="https://mipt.ru/english/" target="_blank"> Moscow Physical Technical Institute </a> on <a href="https://lpr.mipt.ru/" target="_blank">Landau phystech school </a>.
+          I have successfully completed 1st year of education.
+        </p>
+
+        <h2> Experience </h2>
+          <h3> 1) Scientific experience </h3>
+
+          <p class="text_under_h3_4">
+            I working in <a href="https://old.lebedev.ru/en/departments.html" target="_blank"> Lebedev institute </a>
+            of Russian academy of science in laboratory of heavy quarks for 1 year.
+            This laboratory is a part of <a href="https://cms.cern/" target="_blank"> CMS collaboration </a>,
+            which work on <a href="https://home.cern/science/accelerators/large-hadron-collider" target="_blank"> Large Hadron Collider </a> (LHC) in CERN.
+            The subject of my scientific work is analyzing big data from CMS detector to find new particles and it`s decays.
+          </p>
+
+          <h4> My tasks are: </h4>
+           <ul class="ul_text">
+             <li> Analyzing new methods of particle finding on LHC</li>
+             <li> Data collection and features extraction</li>
+             <li> Data preprocessing</li>
+             <li> Distributions approximation, interpretation of the results </li>
+            <li> Building Binary Classification Algorithms mostly XGBoost and RandomForest as a baseline </li>
+           </ul>
+          <h4> Using stack of technologies: </h4>
+          <ul class="ul_text">
+              <li> Numpy, Pandas, Matplotlib, Seaborn </li>
+              <li> Scikit-learn, XGBoost</li>
+              <li> <a href="https://root.cern/" target="_blank"> RooFit <a> - CERN library for data analyzing (C++/Python)</li>
+              <li>  Jupyter Notebook for model development</li>
+              <li> Bash for interaction with linux CERN server</li>
+              <li> <a href="https://monit-grafana.cern.ch" target="_blank"> CERN Grafana </a> for tasks monitoring</li>
+          </ul>
+
+        <h3> 2) Commercial experience</h3>
+        <p class="text_under_h3_4">
+            I have a 1-year experience as a financial analyst.
+            A company group works in recycling area. We were presented as a different companies
+            in each step of recycling from transporting to burial.
+        </p>
+
+          <h4> There are tasks that I were dealing with: </h4>
+          <ul class="ul_text">
+            <li> Construction of financial models of planned projects. </li>
+            <li> Estimation of expense and income items, calculation of financial indicators and metrics. </li>
+            <li> Presentations of financial models to investors and bank employees.</li>
+            <li> Drawing up financial reports. Search for inconsistencies in the plan-fact and causes
+              deviations
+            </li>
+            <li> Calculation of the minimum acceptable tariffs  </li>
+            <li>  Suggestion of business optimization ideas. Translation of ideas into real financial metrics </li>
+            <li> Automation of the process of collecting and processing data
+          </ul>
+
+          <h4> Tools:</h4>
+          <ul class="ul_text">
+            <li> Excel </li>
+            <li> PostgreSQL </li>
+          </ul>
+        <h2> Relevant education and courses: </h2>
+        <ul class="ul_text">
+          <li> Courses of ML/DL in MIPT and HSE </li>
+          <li> 1-year MIPT Python course as an additional professional education program "Digital chair" with postgraduate diploma </li>
+          <li> Self education </li>
+        </ul>
+      </div>
+    </div>
+        <div class="container-fluid">
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10 d-flex justify-content-end" style="margin-bottom:30px">
+                <a type="button" class="btn btn-primary" id="download_cv" href="{% static 'main_app/pdfFiles/Lakomov_A_CV.pdf' %}" style="font-size:25px" download>Download CV</a>
+        </div>
+            </div>
+    </div>
+  </div>
+
+{% endblock %}

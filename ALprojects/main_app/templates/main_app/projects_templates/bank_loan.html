@@ -1,0 +1,272 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}
+    Bank loan project
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item active"> <a class="nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+<li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock menu %}
+
+{% block content %}
+  <div class="container-fluid main_div">
+    <div class="row">
+      <div style="margin-left:10%; margin-top:2%" class="col-10">
+        <h1> Project description</h1>
+        <div class="ms-2" style="margin-top:30px">
+          <p>
+              This project is a bank loan classifier Approved/Not Approved.
+              Dataset is taken from <a href="https://www.kaggle.com/datasets/zaurbegiev/my-dataset" target="_blank" >Kaggle</a>.
+              This task I have made for practice in XGBoost and integrating model into Django.
+          </p>
+          <p>
+            I used XGBoost Classifier with hyperparameters tuning using validation data. Accuracy on test data were 77%,
+            ROC AUC were 0.64, Precision were 81%.
+            <br>
+            Also I made feature selection and their analysis. You can download my solution and sklearn pipeline with model on
+            <a href="https://github.com/ArtemLRep/Bank_loan_project/tree/main", target="_blank">GitHub</a> page, and
+            <a href="https://disk.yandex.ru/d/k4YBueG9MIEVUg" target="_blank">dataset </a> from Yandex disk.
+          </p>
+          <p>
+              To get the result you should insert your data into form below and push button <button class="btn btn-info" disabled> Get result</button>
+          </p>
+           <p>
+              If you are sign in, you can see the result in your <a href="{% url 'user_page' %}">user menu</a> page. All data and results are stored in DB.
+              Data is linked to your profile.
+          </p>
+        </div>
+      </div>
+    </div>
+    <form method="post" id="form">
+      {% csrf_token %}
+      <div class="container-fluid" style="margin-top:4%">
+        <div class="row d-flex flex-column flex-lg-row justify-content-center align-items-center" style="margin-top:4%">
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.amount.label}}</label>
+            {{ form.amount }}
+            <span class="help_text"> {{form.amount.help_text}}</span>
+              {% if form.amount.errors %}
+                <ul class="ul_error">
+                {% for error in form.amount.errors %}
+                  <li class="error_messages"> {{error}} </li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.term.label}}</label>
+            {{ form.term }}
+            <span class="help_text"> {{form.term.help_text}}</span>
+            {% if submitted %}
+              {% if form.term.errors %}
+                {% for error in form.term.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.credit_score.label}}</label>
+            {{ form.credit_score }}
+            <span class="help_text"> {{form.credit_score.help_text}}</span>
+            {% if submitted %}
+              {% if form.credit_score.errors %}
+                {% for error in form.credit_score.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="row d-flex flex-column flex-lg-row justify-content-center align-items-center" >
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.income.label}}</label>
+            {{ form.income }}
+            <span class="help_text"> {{form.income.help_text}}</span>
+            {% if submitted %}
+              {% if form.income.errors %}
+                {% for error in form.income.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.years_in_current_job.label}}</label>
+            {{ form.years_in_current_job }}
+            <span class="help_text"> {{form.years_in_current_job.help_text}}</span>
+            {% if submitted %}
+              {% if form.years_in_current_job.errors %}
+                {% for error in form.years_in_current_job.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.home_ownership.label}}</label>
+            {{ form.home_ownership }}
+            <span class="help_text"> {{form.home_ownership.help_text}}</span>
+            {% if submitted %}
+              {% if form.home_ownership.errors %}
+                {% for error in form.home_ownership.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+
+          </div>
+        </div>
+        <div class="row d-flex flex-column flex-lg-row justify-content-center align-items-center" >
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.purpose.label}}</label>
+            {{ form.purpose }}
+            <span class="help_text"> {{form.purpose.help_text}}</span>
+            {% if submitted %}
+              {% if form.purpose.errors %}
+                {% for error in form.purpose.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.monthly_debt.label}}</label>
+            {{ form.monthly_debt }}
+            <span class="help_text"> {{form.monthly_debt.help_text}}</span>
+            {% if submitted %}
+              {% if form.monthly_debt.errors %}
+                {% for error in form.monthly_debt.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.years_of_credit_history.label}}</label>
+            {{ form.years_of_credit_history }}
+            <span class="help_text"> {{form.years_of_credit_history.help_text}}</span>
+            {% if submitted %}
+              {% if form.years_of_credit_history.errors %}
+                {% for error in form.years_of_credit_history.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="row d-flex flex-column flex-lg-row justify-content-center align-items-center align-items-lg-start">
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.number_of_open_accounts.label}}</label>
+            {{ form.number_of_open_accounts }}
+            <span class="help_text"> {{form.number_of_open_accounts.help_text}}</span>
+            {% if submitted %}
+              {% if form.number_of_open_accounts.errors %}
+                {% for error in form.number_of_open_accounts.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.number_of_credit_problems.label}}</label>
+            {{ form.number_of_credit_problems }}
+            <span class="help_text"> {{form.number_of_credit_problems.help_text}}</span>
+            {% if submitted %}
+              {% if form.number_of_credit_problems.errors %}
+                {% for error in form.number_of_credit_problems.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.current_credit_balance.label}}</label>
+            {{ form.current_credit_balance }}
+            <span class="help_text"> {{form.current_credit_balance.help_text}}</span>
+              {% if form.current_credit_balance.errors %}
+                {% for error in form.current_credit_balance.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="row d-flex flex-column flex-lg-row justify-content-center align-items-center" >
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.maximum_open_credit.label}}</label>
+            {{ form.maximum_open_credit }}
+            <span class="help_text"> {{form.maximum_open_credit.help_text}}</span>
+            {% if submitted %}
+              {% if form.maximum_open_credit.errors %}
+                {% for error in form.maximum_open_credit.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0" >
+            <label> {{form.bankruptcies.label}}</label>
+            {{ form.bankruptcies }}
+            <span class="help_text"> {{form.bankruptcies.help_text}}</span>
+            {% if submitted %}
+              {% if form.bankruptcies.errors %}
+                {% for error in form.bankruptcies.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="from-group col-6 col-lg-4 col-xl-3 d-flex flex-column px-lg-2 py-2 py-lg-0">
+            <label> {{form.tax_liens.label}}</label>
+            {{ form.tax_liens }}
+            <span class="help_text"> {{form.tax_liens.help_text}}</span>
+            {% if submitted %}
+              {% if form.tax_liens.errors %}
+                {% for error in form.tax_liens.errors %}
+                  <span class="error_messages"> {{error}} </span>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="row d-flex flex-column flex-sm-row justify-content-center align-items-center" style="margin-top:4%">
+          <div class="col-4 d-flex justify-content-center py-2" >
+            <input type="submit" class="btn btn-lg btn-info" value="Get result" name="submit">
+          </div>
+          <div class="col-4 d-flex justify-content-center mt-4 mt-sm-0">
+          {% if result != -1 %}
+            {%if result.pk == 0 %}
+            <button type="button" class="btn btn-lg btn-warning" disabled> {{result}} </button>
+            {% else %}
+            <button type="button" class="btn btn-lg btn-success" disabled> {{result}} </button>
+            {% endif %}
+          {% else %}
+            <button type="button" class="btn btn-lg btn-light" disabled> Your result </button>
+          {% endif %}
+          </div>
+        </div>
+      </div>
+    </form>
+    <br><br>
+  </div>
+
+{% endblock content %}

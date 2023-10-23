@@ -1,0 +1,177 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+
+{% block title %}
+    User menu
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item "> <a class="nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock menu %}
+
+
+{% block content %}
+<div class="container-fluid main_div">
+    <div class="row ms-lg-5">
+        <div class="col-12 d-flex flex-column ms-1 ms-lg-5">
+        <h2 class="py-2"> {{request.user.username}} Info</h2>
+            <ul class="info_list">
+                <li> Email: {{request.user.email}} </li>
+                <li> Birth date: {{request.user.birth_date|date:"d M Y" }} </li>
+                <li> Work/Study: {{request.user.work_place}} </li>
+                <li> Last login: {{request.user.last_login|date:"d M Y" }},  {{request.user.last_login|time:"G:i"}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row ms-lg-5">
+            <div class="col d-flex flex-row ms-1 ms-lg-5">
+                <a type="button" class="btn btn-info" href="{% url 'edit_data' %}"> <i class="bi bi-brush"></i> Edit Profile </a>
+                <a type="button" class="btn btn-info ms-4" href="{% url 'password_update' %}"> <i class="bi bi-key"></i> Edit Password </a>
+            </div>
+    </div>
+    <div class="row ms-lg-5">
+        <div class="col-12 col-lg-10 col-xl-9 ms-1 ms-lg-5">
+            <h2 class="py-2">Last activity</h2>
+            <table class="table table-info ms-lg-5">
+                <thead>
+                    <tr>
+                        <th scope="col" class="th-horizontal">#</th>
+                        <th scope="col" class="th-horizontal">Project</th>
+                        <th scope="col" class="th-horizontal">Date</th>
+                        <th scope="col" class="th-horizontal">Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in table_paginator %}
+                        <tr>
+                            <th scope="row"> {{ table_paginator.start_index|add:forloop.counter0 }} </th>
+                                <td>  {{ row.project }} </td>
+                                <td> {{ row.date_time }} </td>
+                            {% if row.project_id == 1 %}
+                            <td> <a href="{% url 'bank_loan_history' row.data_id %}">{{ row.result }} </a> </td>
+                            {% endif %}
+                            {% if row.project_id == 2 %}
+                            <td> <a href="{% url 'clf_project_history' row.data_id %}"> {{ row.result }} </a> </td>
+                            {% endif %}
+                            {% if row.project_id == 3 %}
+                            <td> <a href="{% url 'seg_project_history' row.data_id %}"> Result link </a> </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if table_paginator.paginator.num_pages != 1 %}
+                <nav class="ms-lg-5">
+                    <ul class="pagination">
+                        {% if table_paginator.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ table_paginator.number|add:-1}}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% for page in page_range %}
+                            {% if page == table_paginator.number %}
+                                <li class="page-item active">
+                                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                </li>
+                            {% elif page >= table_paginator.number|add:-2 and page <= table_paginator.number|add:2 %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if table_paginator.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ table_paginator.number|add:+1}}">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row ms-lg-5">
+        <div class="ms-1 ms-lg-5">
+            <form class="row" method="post" id="date_form">
+                {% csrf_token %}
+                    <div class="col-3 col-lg-2">
+                        {{ date_form.period }}
+                    </div>
+                    <div class="col-3 col-lg-2 ms-0" id="left_date_div">
+                        {{ date_form.left_date }}
+                    </div>
+                    <div class="col-3 col-lg-2" id="right_date_div">
+                        {{ date_form.right_date }}
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <button class="btn btn-primary" name="get_activity" id="get_activity" type="submit"> Get history results</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <div class="row ms-lg-5">
+        <div class="col-12 col-lg-10 col-xl-9 d-flex flex-column ms-1 ms-lg-5">
+            <h2 class="py-2"> Feedback history </h2>
+            <div class="col d-none d-sm-block">
+                <table class="table table-info ms-lg-5" style="color:white">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="th-horizontal"> # </th>
+                            <th scope="col" class="th-horizontal"> Project </th>
+                            <th scope="col" class="th-horizontal"> Date </th>
+                            <th scope="col" class="th-horizontal"> Topic </th>
+                            <th scope="col" class="th-horizontal col-3"> Text</th>
+                            <th scope="col" class="th-horizontal col-3"> Answer </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in feedback_data %}
+                            <tr>
+                              <th scope="row"> {{ forloop.counter }} </th>
+                                <td>  {{ row.project }} </td>
+                                <td> {{ row.date_time_last_change }} </td>
+                                <td> {{ row.topic }} </td>
+                                <td> {{ row.text|truncatechars:100 }} </td>
+                                <td> {{ row.answer|truncatechars:100 }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col py-3">
+                <a class="btn btn-info" style="text-decoration:none" role="button" href="{% url 'user_feedback' %}"> View all feedbacks</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js_block %}
+    <script src="{% static 'main_app/JS/user_menu.js' %}"></script>
+{% endblock %}

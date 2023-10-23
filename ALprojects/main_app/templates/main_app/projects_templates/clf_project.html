@@ -1,0 +1,104 @@
+{% extends 'main_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Swan clf project
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+<li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid main_div">
+  <div class="row">
+      <div class="col-9" style="margin-left:10%;margin-top:2%">
+          <h1> Project description </h1>
+          <p> This model is for <a href="https://hacks-ai.ru/hackathons.html?eventId=969064&caseEl=969235&tab=1" target="_blank">Hackathon</a>,
+              organized by Ministry of Natural Resources and Environment of Russia. The task is to train Neural network to
+              classify 3 types of rare swans: Whooper(Klikun in Russian transcription), Mute(Shipun) and Tundra swan(Malyi). The dataset consists of
+              images, and masks. I used pretrained resnet34 model with FC classifier. Two last layers of resnet34, and FC classifier were trained.
+              Accuracy on test sample was 89.3%
+          </p>
+          <p>
+              Also, I trained my own resnet model and a simple convolutional model. But their accuracies were lower.
+              You can see my solution on <a href="https://github.com/ArtemLRep/Swan-Clf-project/tree/main" target="_blank">GitHub</a> page, and download all 3
+              <a href="https://drive.google.com/drive/folders/1kb-pA3Id3xbC9gBkxXbd31GCMZQfw_DY?usp=share_link" target="_blank">models</a>
+              from Google Drive.
+              Additionally, you can download
+              <a href="https://drive.google.com/file/d/105g-tufIiC5nX6fKzh4JQzRfcg79irS-/view?usp=share_link" target="_blank">
+              dataset </a> from Google drive.
+          </p>
+          <p>
+              To get the result upload Image and push <button class="btn btn-primary"> Get result</button> button.
+          </p>
+          <p>
+              If you are sign in, you can see the result in your <a href="{% url 'user_page' %}">user menu</a> page. All images and results are stored in DB and media directory.
+              Data is linked to your profile.
+          </p>
+          <p> <b>Important</b> your image should have 3 channels. Otherwise, you`ll see "Number of channels != 3" label below uploaded image </p>
+      </div>
+  </div>
+  <form method="post" enctype="multipart/form-data" class=class="col-9" style="margin-left:10%;margin-top:2%">
+    <div class="row">
+      <div class="col-8 col-md-6">
+          {% csrf_token %}
+          {{ form }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6 py-3">
+        <button class="btn btn-primary" type="submit"> Get result </button>
+      </div>
+    </div>
+  </form>
+  {% if img %}
+  <div class="row py-3" style="margin-left:10%">
+    <h3 class="py-2"> Image </h3>
+        <img id="Clf_image" class="py-2" src="{{ img.image.url }}">
+
+  </div>
+  {% endif %}
+  {% if result %}
+  <div class="row py-3" style="margin-left:10%">
+        <div class="col-12 d-flex flex-row align-items-center">
+            <div class="d-flex flex-sm-row flex-column align-items-center">
+                <label style="margin-left:0px"> Result is </label>
+                <div class="px-2">
+                  <button class="btn btn-info btn-lg"> {{ result }} </button>
+                </div>
+            </div>
+            <div class="d-flex flex-sm-row flex-column align-items-center">
+                <label> Probability is </label>
+                <div class="px-2">
+                    <button class="btn btn-info btn-lg"> {{ proba }} % </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endif %}
+  {% if error_msg %}
+   <h1 style="color:red" class="px-2"> {{error_msg}} </h1>
+  {% endif %}
+</div>
+{% endblock %}

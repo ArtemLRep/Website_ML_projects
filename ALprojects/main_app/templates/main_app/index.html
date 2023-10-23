@@ -1,0 +1,115 @@
+{% extends "main_app/base.html" %}
+{% load static %}
+{% block title %}
+    A/L projects
+{% endblock %}
+
+{% block menu %}
+  <li class="nav-item"> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+  <li class="nav-item"> <a class = "nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+  <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock menu %}
+
+{% block content %}
+  <div class="container-fluid main_div">
+    <div class="row">
+      <div class="col-9" style="margin-left:10%;margin-top:2%">
+        <h1 class="text-start"> Introduction </h1>
+        <div class="ms-2" style="margin-top:30px">
+          <p> Hello my name is <b> Artem Lakomov</b>.
+            I am glad to see you on my ML projects page!
+            <br> I have done this site for presenting and testing my ML/DL projects.
+          </p>
+
+          <h2> A few words about me: </h2>
+
+          <p style="margin-top:10px"> I am master`s student in MIPT, studying physics, programming and machine learning.
+              I am working in Lebedev Institute of the Russian Academy of Sciences in laboratory studying heavy quarks.
+              This laboratory is a part of CMS collaboration, which works with Large Hardon Collider (LHC) at  CERN.
+              My job is applying  machine learning tools for particle physics and data analysis on CERN data.
+              To better understanding what data I work with and what tasks I solve you can see my work on
+            <a href="https://github.com/ArtemLRep?tab=repositories" target="_blank"> Github </a>
+             or <a href="https://www.kaggle.com/search?q=high+energy+in%3Acompetitions" target="_blank"> CERN Kaggle </a> competitions.
+          </p>
+
+          <p> Also I have one year experience as a
+             business analyst working with business startups modeling and it`s improvement.
+             I am interested in applying ML tools for business purposes and MLOps for web apps.
+             You can see more information about me  on page <a href="{% url 'about' %}" target="_blank"> About </a>.
+          </p>
+
+          <h2>
+            Projects:
+          </h2>
+          <ol class="ol_text">
+            <li> <a href="{% url 'bank_loan' %}" target="_blank"> Bank loan </a></li>
+            <li> <a href="{% url 'clf_project' %}" target="_blank"> CV project </a></li>
+            <li> <a href="{% url 'seg_project' %}"> Segmentation project </a> </li>
+            <li> <a href="{% url 'cms_project' %}"> CMS project </a>  </li>
+          </ol>
+
+          <h2>
+            Additional Info:
+          </h2>
+          <ul class="ul_text">
+            <li style="margin-bottom:10px">
+                If you sign in you can see your <b> previous action`s </b> and <b>results </b>.
+            </li>
+
+            <li style="margin-bottom:10px">
+              You can also see my <a href="https://github.com/ArtemLRep?tab=repositories" target="_blank">
+              Github </a> and download all my ML/DL models to test them by yourlesf.
+            </li>
+
+            <li style="margin-bottom:10px">
+              If you want to contact me please write on email or phone me on a number
+              that you can see below this page.
+           </li>
+
+           <li style="margin-bottom:10px">
+
+            Also if you find something wrong in models and website, please write me on my <a href="mailto:alakomov1997@gmail.com" target="_blank"> email address </a> or
+            on page <a href="{% url 'feedback' %}"> Feedback</a>.
+          </li>
+        </ul>
+      </div>
+    </div>
+   </div>
+  </div>
+{% endblock content %}
+
+{% block footer_images %}
+<ul class="d-flex justify-content-center ul-images">
+    <li>
+        <a href="https://lpr.mipt.ru/" target="_blank">
+        <img id="MIPT_img" src="static/main_app/images/MIPT_logo_eng.png">
+        </a>
+    </li>
+    <li>
+        <a href="https://cms.cern/" target="_blank">
+        <img id ="CMS_img" src="static/main_app/images/CMS_logo.png">
+        </a>
+    </li>
+    <li>
+        <a href="https://home.cern/" target="_blank">
+        <img id ="CERN_img" src="static/main_app/images/CERN_logo.png">
+        </a>
+    </li>
+</ul>
+{% endblock footer_images %}

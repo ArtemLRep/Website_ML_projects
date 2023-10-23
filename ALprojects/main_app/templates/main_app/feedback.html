@@ -1,0 +1,62 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+
+{% block title %}
+    Feedback
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item active"> <a class="nav-link" href="{% url 'main_page' %}" target="_blank"> Home </a> </li>
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid main_div">
+    <div class="col-10" style="margin-left:10%; margin-top:2%">
+        <div class="row">
+            <h1>Feedback</h1>
+            <p> Write your feedback. Choose <b>project</b>, select <b>topic</b>,
+                describe the problem and push <button class="btn btn-info" disabled> Send </button></p>
+            <p>I`ll try to answer asap</p>
+        </div>
+        <div class="row">
+        <form method="post">
+            {% csrf_token %}
+            <div class="col-sm-7 col-md-5 col-lg-3" style="margin-top:20px">
+                <h3> {{feedback_form.project.label}}</h3>
+                {{feedback_form.project}}
+            </div>
+            <div class="col-sm-7 col-md-5 col-lg-3" style="margin-top:20px">
+                <h3> {{feedback_form.topic.label}}</h3>
+                {{feedback_form.topic}}
+            </div>
+            <div class="col-sm-10 col-md-10 col-lg-6 form-group" style="margin-top:20px">
+                <h3> Describe problem </h3>
+                {{feedback_form.text}}
+            </div>
+            <div style="padding:20px">
+                <button class="btn btn-lg btn-info"  name="Send" type="submit"> Send</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

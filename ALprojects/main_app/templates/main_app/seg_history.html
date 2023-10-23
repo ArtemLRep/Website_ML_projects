@@ -1,0 +1,54 @@
+{% extends 'main_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Swan segmentation history
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item "> <a class = "nav-link" href="{% url 'about' %}" target="_blank"> About </a> </li>
+    <li class="nav-item"> <a class = "nav-link" href="{% url 'feedback' %}" target="_blank"> Feedback </a> </li>
+     <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"> ML projects </a>
+      <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'bank_loan' %}"> Bank Loan </a>
+        </li>
+        <li>
+        <a class="dropdown-item" href="{% url 'clf_project' %}"> CV project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'seg_project' %}"> Segmentation project </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'cms_project' %}"> CMS project </a>
+        </li>
+      </ul>
+  </li>
+{% endblock %}
+{% block content %}
+<div class="container-fluid main_div">
+    <div class="row">
+        <div class="col-10 py-4 ms-lg-5">
+            <label> Date of request: {{ data.time_created }}</label>
+        </div>
+    </div>
+
+    <div class="row py-3 ms-4">
+        <label class="py-2"> Image </label>
+        <img id="Clf_image" src="{{ img.image.url }}">
+    </div>
+
+
+    <div class="row py-3 ms-4">
+        <div class="col d-flex flex-column">
+            <h3 class="py-2"> Segmented Image </h3>
+            <img src="{{ res_img.res_image.url }}" style="width:272px; height:272px">
+            <div class="col-8 col-sm-6 py-3">
+                <a type="button" class="btn btn-primary" id="download_cv" href="{{ res_img.res_image.url }}" style="font-size:15px" download>Download Segmented Image</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
